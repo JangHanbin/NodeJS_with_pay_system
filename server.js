@@ -19,7 +19,7 @@ app.engine('html', require('ejs').renderFile);
 
 // CONNECT TO MONGODB SERVER
 mongoose
-    .connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+    .connect("mongodb://192.168.2.63:27017", { useNewUrlParser: true, useUnifiedTopology: true, user:"d0rk", pass:"dd00rrkk"})
     .then(() => console.log('Successfully connected to mongodb'))
     .catch(e => console.error(e));
 
