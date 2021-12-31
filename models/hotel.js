@@ -6,6 +6,7 @@ var hotelSchema = new Schema({
     hotel_name:String,
     location : String,
     hotel_img_path:String,
+    owner_unique_id:String,
     Rooms:[
         {
             room_id:Number,
@@ -30,11 +31,11 @@ var hotelSchema = new Schema({
             book_start_date:Date,
             book_end_date:Date,
             booking_date:{type: Date, default: Date.now},
-            is_cancled:Boolean
+            is_canceled:Boolean
 
         }
     ]
 
 });
 
-module.exports = mongoose.model('book', bookSchema)
+module.exports = mongoose.model('hotel', hotelSchema)
