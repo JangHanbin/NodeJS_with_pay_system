@@ -13,9 +13,9 @@ router.get('/search/:keyword', function(req, res,next) {
     res.send('search' + req.params.keyword);
 });
 
-//reserve hotel reference : https://trello.com/c/MEUpjPBW
-router.post('/reservation', function(req, res,next) {
-    res.send('Reservation');
+//book hotel reference : https://trello.com/c/MEUpjPBW
+router.post('/book', function(req, res,next) {
+    res.send('book');
 });
 
 
