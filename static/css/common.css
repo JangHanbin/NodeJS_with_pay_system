@@ -1,3 +1,3 @@
 @import url(./reset.css);
 @import url(./font.css);
-@import url(/static/css/plugins/tailwind/tailwind-output.css);
+@import url(./plugins/tailwind/tailwind-output.css);
