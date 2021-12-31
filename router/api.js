@@ -5,8 +5,19 @@ var router = express.Router();
 // router.use(function(req, res, next) {
 //     console.log('API.js called!');
 //     next();
-//     console.log(req.baseUrl);
 // });
+
+
+//search hotel api reference : https://trello.com/c/ugQCM6yp
+router.get('/search/:keyword', function(req, res,next) {
+    res.send('search' + req.params.keyword);
+});
+
+//reserve hotel reference : https://trello.com/c/MEUpjPBW
+router.post('/reservation', function(req, res,next) {
+    res.send('Reservation');
+});
+
 
 router.get('/:action', function(req, res,next) {
     res.send('Hello ' + req.params.action);
