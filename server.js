@@ -11,6 +11,7 @@ const api = require('./router/api');
 
 app.use('/', router); // this line for main routing
 app.use('/api', api); // this line for api
+app.use(express.static('/static'));
 
 app.set('views', __dirname + '/templates');
 app.set('view engine', 'ejs');
@@ -21,7 +22,6 @@ mongoose
     .connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('Successfully connected to mongodb'))
     .catch(e => console.error(e));
-
 
 var server = app.listen(8080, function(){
     console.log("Express server has started on port 8080")
