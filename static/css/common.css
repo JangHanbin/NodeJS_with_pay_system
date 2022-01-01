@@ -1,3 +1,15 @@
 @import url(./reset.css);
 @import url(./font.css);
-@import url(./plugins/tailwind/tailwind-output.css);
+
+main {
+    width: 90%;
+    height: 100%;
+    margin: 0 auto;
+}
+
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  -webkit-appearance:none;
+}
