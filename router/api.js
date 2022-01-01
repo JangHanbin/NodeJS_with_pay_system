@@ -11,15 +11,20 @@ var jsonParser = bodyParser.json()
 // });
 
 
-
 router.post('/add', jsonParser, function(req, res,next) { //use jsonparser to parsing content-type application/json
+
     var hotel = new Hotel();
 
     hotel.hotel_name = req.body.hotel_name;
     hotel.location = req.body.location;
-    hotel.hotel_img_path = req.body.hotel_img_path;
+    hotel.hotel_img_path = `/img/${hotel._id}/${hotel._id}.png`; // set hotel path as hotel._id/hotel._id.png
     hotel.rooms = req.body.rooms;
 
+    // set room img path as hotel._id/room._id.png
+    for(let room of hotel.rooms)
+    {
+        room.room_img_path = `/img/${hotel._id}/${room._id}.png`;
+    }
 
     hotel.save(function(err){
         if(err){
@@ -42,9 +47,9 @@ function get_lowest_price(prices) {
     return lowestItems[1]['price'];
 }
 
-
 //search hotel api reference : https://trello.com/c/ugQCM6yp
 router.get('/search/:keyword', function(req, res,next) {
+
     Hotel.find({hotel_name:{$regex: req.params.keyword}},'hotel_name location hotel_img_path rooms.price', {lean: true}, function (err, hotels){ //add lean: true option to add lowest_price and delete rooms price field
         if(err) return res.status(500).json({error: err});
         if(!hotels) return res.status(200).json({result: 'there is no '+req.params.keyword+' hotel in Utopia'});
