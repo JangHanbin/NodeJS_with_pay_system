@@ -1,5 +1,5 @@
 var express = require('express');
-var bodyParser = require('body-parser')
+var bodyParser = require('body-parser') // should be included to parsing post body data
 var router = express.Router();
 const Hotel = require('../models/hotel')
 
@@ -11,14 +11,20 @@ var jsonParser = bodyParser.json()
 // });
 
 
+router.post('/add', jsonParser, function(req, res,next) { //use jsonparser to parsing content-type application/json
 
-router.post('/add', jsonParser, function(req, res,next) {
     var hotel = new Hotel();
-    console.log(req.body)
+
     hotel.hotel_name = req.body.hotel_name;
     hotel.location = req.body.location;
-    hotel.hotel_img_path = req.body.hotel_img_path;
+    hotel.hotel_img_path = `/img/${hotel._id}/${hotel._id}.png`; // set hotel path as hotel._id/hotel._id.png
     hotel.rooms = req.body.rooms;
+
+    // set room img path as hotel._id/room._id.png
+    for(let room of hotel.rooms)
+    {
+        room.room_img_path = `/img/${hotel._id}/${room._id}.png`;
+    }
 
     hotel.save(function(err){
         if(err){
@@ -33,9 +39,32 @@ router.post('/add', jsonParser, function(req, res,next) {
 
 });
 
+function get_lowest_price(prices) {
+
+    var [lowestItems] = Object.entries(prices).sort(([ ,v1], [ ,v2]) => v1 - v2);
+    // console.log(`Lowest value is ${lowestItems[1]['price']}, with a key of ${lowestItems[0]}`);
+
+    return lowestItems[1]['price'];
+}
+
 //search hotel api reference : https://trello.com/c/ugQCM6yp
 router.get('/search/:keyword', function(req, res,next) {
-    res.send('search' + req.params.keyword);
+
+    Hotel.find({hotel_name:{$regex: req.params.keyword}},'hotel_name location hotel_img_path rooms.price', {lean: true}, function (err, hotels){ //add lean: true option to add lowest_price and delete rooms price field
+        if(err) return res.status(500).json({error: err});
+        if(!hotels) return res.status(200).json({result: 'there is no '+req.params.keyword+' hotel in Utopia'});
+        //append the lowest price field and delete rooms field
+        for(let hotel of hotels)
+        {
+            hotel.lowest_price = get_lowest_price(hotel.rooms);
+            delete hotel.rooms;
+
+        }
+
+        res.json(hotels)
+    })
+
+
 });
 
 //book hotel reference : https://trello.com/c/MEUpjPBW
