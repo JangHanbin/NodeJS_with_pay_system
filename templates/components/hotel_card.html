@@ -1,7 +1,7 @@
 <div class="max-w-xs w-72 ml-2 mr-2">
     <div class="bg-white shadow-md border border-gray-200 rounded-lg max-w-sm mb-5">
         <a href="#">
-            <img class="rounded-t-lg" src="<%= result[idx].hotel_img_path %>" alt="<%= result[idx].hotel_img_path %>">
+            <img class="rounded-t-lg" src="https://flowbite.com/docs/images/blog/image-1.jpg" alt="">
         </a>
         <div class="p-5">
             <a href="#">
@@ -9,9 +9,15 @@
                     <%= result[idx].hotel_name %>
                 </h5>
             </a>
-            <p class="text-sm text-gray-700 mb-3">
-                <%= result[idx].location %>
-            </p>
+            <div class="flex">
+                <p class="justify-start w-full text-sm text-gray-700">
+                    <%= result[idx].location %>
+                </p>
+                <p class="justify-end whitespace-nowrap text-sm text-gray-700 mb-3">
+                    <!--  mb-3 -->
+                    <%= result[idx].lowest_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") %> / 박
+                </p>
+            </div>
         </div>
     </div>
 </div>
