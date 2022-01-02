@@ -6,6 +6,33 @@ const Hotel = require('../models/hotel')
 
 var jsonParser = bodyParser.json();
 
+
+function get_lowest_price(prices) {
+
+    var [lowestItems] = Object.entries(prices).sort(([ ,v1], [ ,v2]) => v1 - v2);
+    // console.log(`Lowest value is ${lowestItems[1]['price']}, with a key of ${lowestItems[0]}`);
+
+    return lowestItems[1]['price'];
+}
+
+
+router.get('/hotels', function (req, res, ){
+    Hotel.find({},'hotel_name location hotel_img_path rooms.price', {lean: true}, function (err, hotels){ //add lean: true option to add lowest_price and delete rooms price field
+        if(err) return res.status(500).json({error: err});
+        if(!hotels) return res.status(200).json({result: 'there is no '+req.params.keyword+' hotel in Utopia'});
+
+        for(let hotel of hotels) //TODO will be made function
+        {
+            hotel.lowest_price = get_lowest_price(hotel.rooms);
+            delete hotel.rooms;
+
+        }
+
+        res.json(hotels)
+    })
+
+
+});
 router.post('/add', jsonParser, function(req, res,next) { //use jsonparser to parsing content-type application/json
     // TODO : owner_unique_id can be added in this step. and this method will be allowed in admin page of the hotel owner
     var hotel = new Hotel();
@@ -36,13 +63,6 @@ router.post('/add', jsonParser, function(req, res,next) { //use jsonparser to pa
 
 });
 
-function get_lowest_price(prices) {
-
-    var [lowestItems] = Object.entries(prices).sort(([ ,v1], [ ,v2]) => v1 - v2);
-    // console.log(`Lowest value is ${lowestItems[1]['price']}, with a key of ${lowestItems[0]}`);
-
-    return lowestItems[1]['price'];
-}
 
 //search hotel api reference : https://trello.com/c/ugQCM6yp
 router.get('/search/:keyword', function(req, res,next) {
@@ -51,7 +71,9 @@ router.get('/search/:keyword', function(req, res,next) {
         if(err) return res.status(500).json({error: err});
         if(!hotels) return res.status(200).json({result: 'there is no '+req.params.keyword+' hotel in Utopia'});
         //append the lowest price field and delete rooms field
-        for(let hotel of hotels)
+
+
+        for(let hotel of hotels) //TODO will be made function
         {
             hotel.lowest_price = get_lowest_price(hotel.rooms);
             delete hotel.rooms;
