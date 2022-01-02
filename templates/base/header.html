@@ -25,8 +25,25 @@
         </div>
         <div class="hidden sm:block sm:ml-6 w-full">
           <div class="flex space-x-4 h-full items-center">
-            <a href="/" class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium" aria-current="page">Hotel</a>
-            <a href="#" class="text-slate-600 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Reservation</a>
+            <a href="/" 
+              class="
+                <% if(url === '') { %>
+                  bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium 
+                <% } else { %> 
+                  text-slate-600 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium
+                <% } %>" 
+                aria-current="page">
+              Hotel
+            </a>
+            <a href="/reservation" 
+              class="
+                <% if(url === 'reservation') { %>
+                  bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium 
+                <% } else { %> 
+                  text-slate-600 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium
+                <% } %>">
+              Reservation
+            </a>
           </div>
         </div>
       </div>
@@ -39,3 +56,6 @@
     </div>
   </div>
 </nav>
+<script>
+
+</script>

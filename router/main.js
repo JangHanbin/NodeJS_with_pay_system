@@ -13,5 +13,8 @@ router.get('/search', function(req,res) {
 router.post('/search', jsonParser, function(req,res) {
     res.render('search.html', { result:req.body });
 });
+router.get('/reservation', function(req,res) {
+    res.render('reservation.html');
+});
 
 module.exports = router;
