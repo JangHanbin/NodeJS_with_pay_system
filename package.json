@@ -14,15 +14,11 @@
     "dotenv": "^10.0.0",
     "ejs": "^3.1.6",
     "express": "^4.17.2",
-<<<<<<< HEAD
-    "mongoose": "^6.1.4"
-=======
     "mongoose": "^6.1.4",
     "body-parser": "^1.19.1",
     "express-validator": "6.14.0"
   },
   "devDependencies": {
     "tailwindcss": "^3.0.8"
->>>>>>> 08bfe02ef720e316ac7f636588e2f0691bf0a2a2
   }
 }

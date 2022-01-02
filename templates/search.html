@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('./base/head.html') %>
+    
+    <script>
+        let searchParams = new URLSearchParams(window.location.search);
+        let search = searchParams.get('search');
+        let checkin = searchParams.get('checkin');
+        let checkout = searchParams.get('checkout');
+        let requestUrl = `/api/search/${search}`;
+        $.ajax({
+            type: "GET",
+            url: requestUrl,
+            success: function(result) {
+                console.log("get.", result);
+                $.ajax({
+                    type: "POST",
+                    url: "/search",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(result),
+                    success: function(data) {
+                        console.log("post.", data);
+                        document.body.innerHTML = data;
+                    }
+                });
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+      <%- include('./base/header.html') %>
+    </header>
+    <main>
+        <%- include('./components/hotel_search.html') %>
+
+        <div class="flex flex-wrap justify-center">
+            <% if(typeof result != "undefined") { %>
+                <% for(let idx = 0; idx < result.length; idx++) { %>
+                    <%- include('./components/hotel_card.html' , { result:result, idx:idx }) %>
+                <% } %>
+            <%} %>
+        </div>
+    </main>
+</body>
+</html>
