@@ -3,8 +3,6 @@ var Schema = mongoose.Schema;
 
 
 var bookSchema = new Schema({
-
-    room_id:Number,
     customer_name:
         {
             last_name:String,
@@ -24,8 +22,6 @@ var bookSchema = new Schema({
 });
 
 var roomSchema = new Schema({
-
-    room_id:Number,
     room_name:String,
     price:Number,
     room_img_path:String
@@ -38,13 +34,11 @@ var hotelSchema = new Schema({
     hotel_img_path:String,
     owner_unique_id:String,
     rooms:[{
-        room_id:Number,
         room_name:String,
         price:Number,
         room_img_path:String
     }],
     books:[{
-        room_id:Number,
         customer_name:
             {
                 last_name:String,

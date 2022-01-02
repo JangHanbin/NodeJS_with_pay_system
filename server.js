@@ -8,9 +8,11 @@ const { PORT, MONGO_URI } = process.env;
 
 const router = require('./router/main');
 const api = require('./router/api');
+const pay = require('./router/payment');
 
 app.use('/', router); // this line for main routing
 app.use('/api', api); // this line for api
+app.use('/pay', pay); // this line for
 app.use(express.static('static'));
 
 app.set('views', __dirname + '/templates');
