@@ -1,0 +1,31 @@
+.addhotelFormWrap {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: transparent;
+    width: 100%;
+    z-index: 10;
+}
+.addhotelFormWrap form {
+    width: 528px;
+    margin: 0 auto;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    border-radius: 25px;
+}
+.addhotelFormWrap button:nth-child(1) {
+    border: 1px solid #e1e4e9;
+}
+
+#upload_hotelname {
+    margin: 0 0 20px 0;
+}
+#upload_roomname {
+    margin: 0 0 7px 0;
+}
+#upload_hotelname p,
+#upload_roomname p {
+    font-size: 14px;
+}

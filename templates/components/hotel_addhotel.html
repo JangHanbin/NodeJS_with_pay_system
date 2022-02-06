@@ -1,0 +1,284 @@
+<div class="addhotelFormWrap absolute">
+  <form action="/api/add" method="post" id="addhotelForm" class="min-h-screen flex flex-col justify-center">
+    <div class="px-4 py-10 bg-white md:mx-0 rounded-3xl sm:p-10">
+      <div class="max-w-md mx-auto">
+        <div class="flex items-center space-x-5">
+          <div class="h-14 w-14 bg-yellow-200 rounded-full flex flex-shrink-0 justify-center items-center text-yellow-500 text-2xl font-mono">i</div>
+          <div class="block pl-2 font-semibold text-xl self-start text-gray-700">
+            <h2 class="leading-relaxed">Add Hotel</h2>
+            <p class="text-sm text-gray-500 font-normal leading-relaxed">
+              Please enter your hotel information.
+            </p>
+          </div>
+        </div>
+        <div class="divide-y divide-gray-200">
+          <div class="py-8 text-base leading-6 space-y-3 text-gray-700 sm:text-lg sm:leading-7">
+            <div class="flex flex-col">
+              <label class="leading-loose">Hotel Name</label>
+              <input name="hotel_name" type="text" class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600" placeholder="Event title">
+            </div>
+            
+            <div class="flex flex-col">
+              <label class="leading-loose">Hotel Image</label>
+              <label class="cursor-pointer" style="width:450px;">
+                <div id="upload_hotelimage" class="file_upload p-5 relative border-4 border-dotted border-gray-300 rounded-lg">
+                  <svg class="text-indigo-500 w-12 mx-auto mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" /></svg>
+                  <div id="upload_hotelname"></div>
+                  <div class="input_field flex flex-col w-max mx-auto text-center">
+                    <input name="hotel_image" class="text-sm w-36 hidden" type="file" multiple onchange="updateFilelist(0)">
+                    <div class="px-10 pb-1 text bg-indigo-500 text-white border border-gray-300 rounded font-semibold">
+                      Upload
+                    </div>
+                  </div>
+                </div> 
+              </label>
+            </div>
+            
+            <div class="flex flex-col">
+              <label class="leading-loose">Location</label>
+              <input name="hotel_location" type="text" class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600 mb-3" placeholder="Optional">
+            </div>
+            
+            <div class="room-wrap">
+              <div class="border border-solid border-slate-200 rounded-lg px-4 pt-1 pb-4 mb-3">
+                <div class="flex flex-col">
+                  <label class="leading-loose">Room Name</label>
+                  <input type="text" name="room_name" class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600" placeholder="Optional">
+                </div>
+                <div id="upload_roomimage" class="flex flex-col">
+                  <label class="leading-loose">Room Image</label>
+                  <div id="upload_roomname"></div>
+                  <label class="input_field flex flex-col w-full mx-auto text-center cursor-pointer">
+                    <input class="text-sm hidden" type="file" name="room_image" multiple onchange="updateFilelist(1)">
+                    <div class="flex justify-center items-center align-center px-10 py-2 text bg-indigo-500 text-white border border-gray-300 rounded font-semibold">
+                      <svg class="mr-2" fill="#FFF" height="18" viewBox="0 0 24 24" width="18" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                          <path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/>
+                      </svg> Select
+                    </div>
+                  </label>   
+                </div>
+                <div class="flex flex-col">
+                  <label class="leading-loose">Price</label>
+                  <input type="text" name="room_price" class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600" placeholder="Optional">
+                </div>
+              </div>
+            </div>
+  
+            <div class="btn-wrap flex" style="width: 448px;">
+              <button type="button" onClick="addRoom()" 
+                class="mr-2 py-2 px-4 block bg-gray-900 text-white w-full text-center rounded-md">
+                Add Room
+              </button>
+              <button type="button" onClick="removeRoom()" 
+                class="py-2 px-4 block bg-gray-900 text-white w-full text-center rounded-md">
+                Remove Room
+              </button>
+            </div>
+  
+            <!-- <div class="flex items-center space-x-4 mt-2">
+              <div class="flex flex-col">
+                <label class="leading-loose">Start</label>
+                <div class="relative focus-within:text-gray-600 text-gray-400">
+                  <input type="text" class="pr-4 pl-10 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600" placeholder="25/02/2020">
+                  <div class="absolute left-3 top-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                  </div>
+                </div>
+              </div>
+              <div class="flex flex-col">
+                <label class="leading-loose">End</label>
+                <div class="relative focus-within:text-gray-600 text-gray-400">
+                  <input type="text" class="pr-4 pl-10 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600" placeholder="26/02/2020">
+                  <div class="absolute left-3 top-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+          </div>
+          <div class="pt-4 flex items-center space-x-4">
+            <button class="flex justify-center items-center w-full text-gray-900 px-4 py-3 rounded-md focus:outline-none" onclick="closeAddRoom()">
+              <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg> Cancel
+            </button>
+            <button type="submit" form="addhotelForm" class="bg-indigo-500 flex justify-center items-center w-full text-white px-4 py-3 rounded-md focus:outline-none">Create</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<script>
+  // Button ----------------------------
+  // Add room
+  function addRoom() {
+    const container = $(".room-wrap");
+    const roomHTML = `
+      <div class="room border border-solid border-slate-200 rounded-lg px-4 pt-1 pb-4 mt-3">
+        <div class="flex flex-col">
+          <label class="leading-loose">Room Name</label>
+          <input name="room_name" type="text" class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600" placeholder="Optional">
+        </div>
+        <div class="flex flex-col">
+          <label class="leading-loose">Room Image</label>
+          <label class="input_field flex flex-col w-full mx-auto text-center cursor-pointer">
+            <input name="room_image" class="text-sm hidden" type="file" multiple>
+            <div class="flex justify-center items-center align-center px-10 py-2 text bg-indigo-500 text-white border border-gray-300 rounded font-semibold">
+              <svg class="mr-2" fill="#FFF" height="18" viewBox="0 0 24 24" width="18" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 0h24v24H0z" fill="none"/>
+                  <path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/>
+              </svg> Select
+            </div>
+          </label>   
+        </div>
+        <div class="flex flex-col">
+          <label class="leading-loose">Price</label>
+          <input type="text" name="room_price" class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600" placeholder="Optional">
+        </div>
+      </div>
+    `;
+    container.innerHTML += roomHTML;
+  }
+  function removeRoom() {
+    console.log("removeRoom");
+    const rooms = $(".room-wrap").querySelectorAll(".room");
+    if(rooms) {
+      for(let idx=0; idx<rooms.length; idx++) {
+        if(idx === (rooms.length-1)) {
+          let room = rooms[idx];
+          room.parentNode.removeChild(room);
+        }
+      }
+    }
+  }
+
+  const data_hotelname = $("input[name='hotel_name']");
+  const data_hotelimage = $("input[name='hotel_image']");
+  const data_hotellocation = $("input[name='hotel_location']");
+  const data_roomname = $("input[name='room_name']");
+  const data_roomprice = $("input[name='room_price']");
+  const data_roomimage = $("input[name='room_image']");
+
+  // Upload files
+  // 1. Hotel Image
+  let hotelFileList = new Array();
+  let roomFileList = new Array();
+  function updateFilelist(type) {
+    // hotel
+    if(type === 0) {
+      $("#upload_hotelimage svg")[0].style.display = "none";
+
+      const files = data_hotelimage[0].files;
+      for(let idx=0; idx<files.length; idx++) {
+        let image = files.item(idx);
+        hotelFileList.push(image);
+
+        let p = document.createElement("p");
+        p.innerText = image.name;
+        $("#upload_hotelname")[0].appendChild(p);
+      }
+    }
+    // room
+    if(type === 1) {
+      const files = data_roomimage[0].files;
+      for(let idx=0; idx<files.length; idx++) {
+        let image = files.item(idx);
+        roomFileList.push(image);
+
+        let p = document.createElement("p");
+        p.innerText = image.name;
+        $("#upload_roomname")[0].appendChild(p);
+      }
+    }
+  }
+
+  // Cancel
+  function closeAddRoom() {
+    $(".addhotelFormWrap").style.display = "none";
+    $("header").style = "filter: none";
+    $("main").style = "filter: none";
+  }
+  // Create
+  $("#addhotelForm").submit(function(e) {
+    e.preventDefault();
+    console.log("addhotelForm");
+
+    // // Check
+    // if(!data_hotelname[0].value) {
+    //   alert("호텔 이름을 입력해주세요");
+    //   return 0;
+    // }
+    // if(!hotelFileList[0]) {
+    //   alert("호텔 사진을 업로드 해주세요");
+    //   return 0;
+    // }
+    // if(!data_hotellocation[0].value) {
+    //   alert("호텔 위치를 입력해주세요");
+    //   return 0;
+    // }
+    // if(!data_roomname[0].value) {
+    //   alert("방 이름을 입력해주세요");
+    //   return 0;
+    // }
+    // if(!roomFileList[0]) {
+    //   alert("방 사진을 업로드 해주세요");
+    //   return 0;
+    // }
+    // if(!data_roomprice[0].value) {
+    //   alert("방 가격을 입력해주세요");
+    //   return 0;
+    // }
+    
+    // create Json
+    let formData = new FormData;
+    formData.append("hotel_name", data_hotelname[0].value);
+    formData.append("location", data_hotellocation[0].value);
+
+    const data = [{
+      "room_name": data_roomname[0].value,
+      "price": data_roomprice[0].value
+    }]
+    
+    let hotelImageFormData = new FormData();
+    let roomImageFormData = new FormData();
+    for(let i=0; i<hotelFileList.length; i++) {
+      formData.append("hotel_img_path[]", hotelFileList[i]);
+    }
+    for(let i=0; i<roomFileList.length; i++) {
+      formData.append("room_img_path[]", roomFileList[i]);
+    }
+    console.log("formData------------")
+    console.log(formData.getAll("hotel_img_path[]"));
+    console.log(formData.getAll("room_img_path[]"));
+
+    formData.append(0, new Blob([JSON.stringify(data)], {type:"application/json"}));
+    console.log("-------------------")
+    console.log(formData);
+
+    console.log("hotel name", data_hotelname[0].value);
+    console.log("hotel image", hotelFileList);
+    console.log("hotel location", data_hotellocation[0].value);
+    console.log("room name", data_roomname[0].value);
+    console.log("room image", roomFileList);
+    console.log("room price", data_roomprice[0].value);
+
+    $.ajax({
+      url: '/api/add',
+      type: 'POST',
+      data: formData,
+      contentType: false,            
+      processData: false,            
+      enctype : 'multipart/form-data', 
+      success: function(data) {
+        if (result.SUCCESS == true) {
+         alert("성공");
+        } else {
+         alert("실패");
+         }
+      }
+    });
+    // https://trello.com/c/3WmJomeK/12-%ED%98%B8%ED%85%94-%EC%B6%94%EA%B0%80-frontend
+    // https://truecode-95.tistory.com/167
+    // https://medium.com/jaehoon-techblog/simpleblog-%EA%B0%9C%EB%B0%9C-%EC%9D%BC%EC%A7%80-4-55a8d2a8604
+  });
+</script>

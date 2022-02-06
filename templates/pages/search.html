@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <%- include('./base/head.html') %>
+    <%- include('../base/head.html') %>
     
     <script>
         let searchParams = new URLSearchParams(window.location.search);
@@ -16,7 +16,7 @@
                 console.log("get.", result);
                 $.ajax({
                     type: "POST",
-                    url: "/search",
+                    url: "search",
                     contentType: "application/json; charset=utf-8",
                     data: JSON.stringify(result),
                     success: function(data) {
@@ -29,16 +29,14 @@
     </script>
 </head>
 <body>
-    <header>
-      <%- include('./base/header.html', { url:"search" }) %>
-    </header>
+    <%- include('../base/header.html', { url:"search" }) %>
     <main>
-        <%- include('./components/hotel_search.html') %>
+        <%- include('../components/hotel_search.html') %>
 
         <div class="flex flex-wrap justify-center">
             <% if(typeof result != "undefined") { %>
                 <% for(let idx = 0; idx < result.length; idx++) { %>
-                    <%- include('./components/hotel_card.html' , { result:result, idx:idx }) %>
+                    <%- include('../components/hotel_card.html' , { result:result, idx:idx }) %>
                 <% } %>
             <%} %>
         </div>

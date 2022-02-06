@@ -1,61 +1,82 @@
-<nav x-data="{ open: false }" class="border-y-2 border-solid border-slate-100">
-  <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
-    <div class="relative flex items-center justify-between h-16">
-      <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
-        <!-- Mobile menu button-->
-        <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" @click="open = !open" aria-expanded="false" x-bind:aria-expanded="open.toString()">
-          <span class="sr-only">Open main menu</span>
-          <svg x-description="Icon when menu is closed. Heroicon name: outline/menu" x-state:on="Menu open" x-state:off="Menu closed" class="block h-6 w-6" :class="{ 'hidden': open, 'block': !(open) }" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-          </svg>
-          <svg x-description="Icon when menu is open. Heroicon name: outline/x" x-state:on="Menu open" x-state:off="Menu closed" class="hidden h-6 w-6" :class="{ 'block': open, 'hidden': !(open) }" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-          </svg>
-        </button>
-      </div>
-      <!-- 반응형 메뉴 -->
-      <div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
-        <!-- 반응형 메뉴 로고 -->
-        <div class="flex-shrink-0 flex items-center">
-          <img class="block lg:hidden h-8 w-auto mr-2" src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg" alt="Workflow">
-          <div class="hidden lg:flex items-center mr-4">
-            <img class="h-8 w-auto mr-2" src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg" alt="Workflow">
-            <p class="text-2xl font-bold">Utopia</p>
-          </div>
-        </div>
-        <div class="hidden sm:block sm:ml-6 w-full">
-          <div class="flex space-x-4 h-full items-center">
-            <a href="/" 
-              class="
-                <% if(url === '') { %>
-                  bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium 
-                <% } else { %> 
-                  text-slate-600 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium
-                <% } %>" 
-                aria-current="page">
-              Hotel
-            </a>
-            <a href="/reservation" 
-              class="
-                <% if(url === 'reservation') { %>
-                  bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium 
-                <% } else { %> 
-                  text-slate-600 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium
-                <% } %>">
-              Reservation
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div x-description="Mobile menu, show/hide based on menu state." class="sm:hidden" id="mobile-menu" x-show="open">
-    <div class="px-2 pt-2 pb-3 space-y-1">
-        <a href="#" class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium" x-state:on="Current" x-state:off="Default" aria-current="page" x-state-description="Current: &quot;bg-gray-900 text-white&quot;, Default: &quot;text-gray-300 hover:bg-gray-700 hover:text-white&quot;">Hotel</a>
-        <a href="#" class="text-slate-600 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium" x-state-description="undefined: &quot;bg-gray-900 text-white&quot;, undefined: &quot;text-gray-300 hover:bg-gray-700 hover:text-white&quot;">Reservation</a>
-    </div>
-  </div>
-</nav>
-<script>
+<%- include('../components/hotel_addHotel.html') %>
 
+<header>
+  <nav x-data="{ open: false }" class="border-y-2 border-solid border-slate-100">
+    <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+      <div class="relative flex items-center justify-between h-16">
+        <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+          <!-- Mobile menu button-->
+          <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" @click="open = !open" aria-expanded="false" x-bind:aria-expanded="open.toString()">
+            <span class="sr-only">Open main menu</span>
+            <svg x-description="Icon when menu is closed. Heroicon name: outline/menu" x-state:on="Menu open" x-state:off="Menu closed" class="block h-6 w-6" :class="{ 'hidden': open, 'block': !(open) }" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+            <svg x-description="Icon when menu is open. Heroicon name: outline/x" x-state:on="Menu open" x-state:off="Menu closed" class="hidden h-6 w-6" :class="{ 'block': open, 'hidden': !(open) }" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+        <!-- 반응형 메뉴 -->
+        <div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
+          <!-- 반응형 메뉴 로고 -->
+          <div class="flex-shrink-0 flex items-center">
+            <img class="block lg:hidden h-8 w-auto mr-2" src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg" alt="Workflow">
+            <div class="hidden lg:flex items-center mr-4">
+              <img class="h-8 w-auto mr-2" src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg" alt="Workflow">
+              <p class="text-2xl font-bold">Utopia</p>
+            </div>
+          </div>
+          <div class="hidden sm:block sm:ml-6 w-full">
+            <div class="flex space-x-4 h-full items-center">
+              <a href="/" 
+                class="
+                  <% if(url === '') { %>
+                    bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium 
+                  <% } else { %> 
+                    text-slate-600 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium
+                  <% } %>" 
+                  aria-current="page">
+                Hotel
+              </a>
+              <a href="/reservation" 
+                class="
+                  <% if(url === 'reservation') { %>
+                    bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium 
+                  <% } else { %> 
+                    text-slate-600 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium
+                  <% } %>">
+                Reservation
+              </a>
+              <a href="#none" onclick="openAddRoom()"
+                class="
+                  <% if(url === 'addHotel') { %>
+                    bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium 
+                  <% } else { %> 
+                    text-slate-600 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium
+                  <% } %>">
+                Add Room
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div x-description="Mobile menu, show/hide based on menu state." class="sm:hidden" id="mobile-menu" x-show="open">
+      <div class="px-2 pt-2 pb-3 space-y-1">
+          <a href="#" class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium" x-state:on="Current" x-state:off="Default" aria-current="page" x-state-description="Current: &quot;bg-gray-900 text-white&quot;, Default: &quot;text-gray-300 hover:bg-gray-700 hover:text-white&quot;">Hotel</a>
+          <a href="#" class="text-slate-600 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium" x-state-description="undefined: &quot;bg-gray-900 text-white&quot;, undefined: &quot;text-gray-300 hover:bg-gray-700 hover:text-white&quot;">Reservation</a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<script>
+  function openAddRoom() {
+    const formWrap = document.querySelector(".addhotelFormWrap");
+    const header = document.querySelector("header");
+    const main = document.querySelector("main");
+    formWrap.style.display = "block";
+    header.style = "filter: blur(5px)";
+    main.style = "filter: blur(5px)";
+  }
 </script>
